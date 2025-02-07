@@ -27,7 +27,7 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  Hi, I'm Abduro Genamo
+                  Hi, I&apos;m Abduro Genamo
                 </motion.h1>
                 <motion.p 
                   className="text-xl md:text-2xl mb-8"
