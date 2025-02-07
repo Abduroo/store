@@ -35,6 +35,8 @@ export default function ContactPage() {
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
         throw new Error('Failed to send message');
       }
@@ -117,9 +119,8 @@ export default function ContactPage() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="+1 (123) 456-7890"
+                    placeholder="Your phone number (optional)"
                   />
                 </label>
               </div>
@@ -136,8 +137,8 @@ export default function ContactPage() {
                     onChange={handleChange}
                     required
                     rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent resize-none"
-                    placeholder="Your message here..."
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    placeholder="Your message"
                   />
                 </label>
               </div>
@@ -145,7 +146,7 @@ export default function ContactPage() {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full bg-blue-600 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 ${
+                className={`w-full bg-blue-600 text-white py-3 rounded-lg font-medium flex items-center justify-center gap-2 ${
                   isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:bg-blue-700'
                 }`}
                 whileHover={{ scale: isSubmitting ? 1 : 1.02 }}

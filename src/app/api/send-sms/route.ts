@@ -1,42 +1,31 @@
 import { NextResponse } from 'next/server';
-import twilio from 'twilio';
-
-// Using environment variables for security
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const twilioPhone = process.env.TWILIO_PHONE_NUMBER;
-const targetPhone = process.env.TARGET_PHONE_NUMBER;
-
-// Only initialize if credentials are available
-const client = accountSid && authToken ? twilio(accountSid, authToken) : null;
 
 export async function POST(request: Request) {
   try {
-    if (!client || !twilioPhone || !targetPhone) {
-      throw new Error('Missing Twilio configuration');
-    }
-
     const { name, email, phone, message } = await request.json();
 
-    const smsMessage = `
-New Contact Form Submission:
-Name: ${name}
-Email: ${email}
-Phone: ${phone}
-Message: ${message}
-`;
-
-    const result = await client.messages.create({
-      body: smsMessage,
-      from: twilioPhone,
-      to: targetPhone
+    // Here you can implement your own message handling logic
+    // For example, you could:
+    // 1. Send an email
+    // 2. Store in a database
+    // 3. Forward to a messaging service
+    
+    console.log('Contact Form Submission:', {
+      name,
+      email,
+      phone,
+      message,
+      timestamp: new Date().toISOString()
     });
 
-    return NextResponse.json({ success: true, messageId: result.sid });
+    return NextResponse.json({ 
+      success: true, 
+      message: 'Message received successfully'
+    });
   } catch (error) {
-    console.error('Error sending SMS:', error);
+    console.error('Error processing message:', error);
     return NextResponse.json(
-      { error: 'Failed to send message' },
+      { error: 'Failed to process message' },
       { status: 500 }
     );
   }
